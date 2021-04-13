@@ -10,14 +10,48 @@
 					<content>
                         <HBox>
                             <Label id="labelEmployee" text="{i18n>labelEmployee}" labelFor="inputEmployee" class="sapUiSmallMargin" />
-                            <Input id="inputEmployee" required="false" maxLength="6" width="200px" class="sapUiSmallMarginEnd" liveChange="onLiveChange"/>
+                            <Input id="inputEmployee" value="{/EmployeeId}" required="false" maxLength="6" width="200px" class="sapUiSmallMarginEnd" />
                             <Label id="labelCountry" text="{i18n>labelCountry}" visible="false" labelFor="slCountry" class="sapUiSmallMargin" />
-                            <Select id="slCountry" class="sapUiSmallMarginEnd" visible="false" forceSelection="false">
-                                <core:Item key="US" text="{i18n>labelUS}" />
-                                <core:Item key="UK" text="{i18n>labelUK}" />
-                                <core:Item key="SP" text="{i18n>labelES}" />
+                            <Select id="slCountry" selectedKey="{/CountryKey}" items="{/ListCountry}" class="sapUiSmallMarginEnd" forceSelection="false">
+                                <core:Item key="{Key}" text="{Text}" />
                             </Select>
-                        </HBox>                      
+                            <Button id="btnFilter" text="{i18n>btnFilter}" icon="sap-icon://search" press="onFilter" class="sapUiSmallMarginEnd"/> 
+                            <Button id="btnClear" text="{i18n>btnClear}" icon="sap-icon://clear-filter" press="onClearFilter" class="sapUiSmallMarginEnd"/>
+                        </HBox>    
+                        <HBox>
+                            <Panel>
+                                <Table id="tableEmployee"
+                                    headerText="{i18n>tableEmployeeTitle}" 
+                                    class="sapUiResponsiveMargin" 
+                                    width="auto" 
+                                    items="{/Employees}">                                     
+                                    <columns>
+                                        <Column hAlign="End" minScreenWidth="Small" demandPopin="true" width="6em">
+                                            <Text text="{i18n>columnEmployeeID}" />
+                                        </Column>
+                                        <Column>
+                                            <Text text="{i18n>columnEmployeeName}" />
+                                        </Column>   
+                                        <Column minScreenWidth="Small" demandPopin="true">
+                                            <Text text="{i18n>columnEmployeeCountry}" />
+                                        </Column>
+                                        <Column minScreenWidth="Tablet">
+                                            <Text text="{i18n>columnEmployeeCity}" />
+                                        </Column>
+                                    </columns>
+                                    <items>
+                                        <ColumnListItem>
+                                                <cells>  
+                                                    <Text text="{EmployeeID}" />
+                                                    <Text text="{LastName}, {FirstName}" />
+                                                    <Text text="{Country}" />
+                                                    <Text text="{City}" />
+                                                </cells>
+                                        </ColumnListItem>
+                                    </items> 
+                                </Table>
+                            </Panel>   
+                        </HBox>                                       
                     </content>
 				</Page>
 			</pages>
