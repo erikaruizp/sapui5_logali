@@ -1,16 +1,19 @@
+//@ts-nocheck
 sap.ui.define([
         "sap/ui/core/mvc/Controller",
         "sap/ui/model/json/JSONModel",
         "sap/ui/model/Filter",
-        "sap/ui/model/FilterOperator"
+        "sap/ui/model/FilterOperator",
+        "sap/m/MessageToast"
 	],
 	/**
      * @param {typeof sap.ui.core.mvc.Controller} Controller
      * @param {typeof sap.ui.model.json.JSONModel} JSONModel
      * @param {typeof sap.ui.model.Filter} Filter
      * @param {typeof sap.ui.model.FilterOperator} FilterOperator
+     * @param {typeof sap.m.MessageToast} MessageToast
      */
-	function (Controller,JSONModel,Filter,FilterOperator) {
+	function (Controller,JSONModel,Filter,FilterOperator,MessageToast) {
         "use strict";
 
         function onInit() {
@@ -83,6 +86,15 @@ sap.ui.define([
             var oModel = this.getView().getModel();
             oModel.setProperty("/EmployeeId","");
             oModel.setProperty("/CountryKey","");
+        };
+
+        function onShowPostal(oEvent) {
+            const oResourceBundle = this.getView().getModel("i18n").getResourceBundle();
+            var itemPressed = oEvent.getSource();
+            var oContext = itemPressed.getBindingContext();
+            var objectContext = oContext.getObject();
+            var mensaje = oResourceBundle.getText("columnPostal") + ": " + objectContext.PostalCode;
+            MessageToast.show(mensaje);
         }
 
         var Main = Controller.extend("logaligroup.Employees.controller.MainView", {});
@@ -91,6 +103,7 @@ sap.ui.define([
         Main.prototype.onLiveChange = onLiveChange;
         Main.prototype.onFilter = onFilter;
         Main.prototype.onClearFilter = onClearFilter;
+        Main.prototype.onShowPostal = onShowPostal;
             
 
 		return Main;

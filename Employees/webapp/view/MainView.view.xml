@@ -40,7 +40,7 @@
                                         </Column>
                                     </columns>
                                     <items>
-                                        <ColumnListItem>
+                                        <ColumnListItem type="Active" press="onShowPostal">
                                                 <cells>  
                                                     <Text text="{EmployeeID}" />
                                                     <Text text="{LastName}, {FirstName}" />
