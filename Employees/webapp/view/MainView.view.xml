@@ -10,10 +10,10 @@
 					<content>
                         <HBox>
                             <Label id="labelEmployee" text="{i18n>labelEmployee}" labelFor="inputEmployee" class="sapUiSmallMargin" />
-                            <Input id="inputEmployee" value="{/EmployeeId}" required="false" maxLength="6" width="200px" class="sapUiSmallMarginEnd" />
+                            <Input id="inputEmployee" value="{jsonCountry>/EmployeeId}" required="false" maxLength="6" width="200px" class="sapUiSmallMarginEnd" />
                             <Label id="labelCountry" text="{i18n>labelCountry}" visible="false" labelFor="slCountry" class="sapUiSmallMargin" />
-                            <Select id="slCountry" selectedKey="{/CountryKey}" items="{/ListCountry}" class="sapUiSmallMarginEnd" forceSelection="false">
-                                <core:Item key="{Key}" text="{Text}" />
+                            <Select id="slCountry" selectedKey="{jsonCountry>/CountryKey}" items="{jsonCountry>/ListCountry}" class="sapUiSmallMarginEnd" forceSelection="false">
+                                <core:Item key="{jsonCountry>Key}" text="{jsonCountry>Text}" />
                             </Select>
                             <Button id="btnFilter" text="{i18n>btnFilter}" icon="sap-icon://search" press="onFilter" class="sapUiSmallMarginEnd"/> 
                             <Button id="btnClear" text="{i18n>btnClear}" icon="sap-icon://clear-filter" press="onClearFilter" class="sapUiSmallMarginEnd"/>
@@ -24,7 +24,7 @@
                                     headerText="{i18n>tableEmployeeTitle}" 
                                     class="sapUiResponsiveMargin" 
                                     width="auto" 
-                                    items="{/Employees}">                                     
+                                    items="{jsonEmployee>/Employees}">                                     
                                     <columns>
                                         <Column hAlign="End" minScreenWidth="Small" demandPopin="true" width="6em">
                                             <Text text="{i18n>columnEmployeeID}" />
@@ -42,10 +42,10 @@
                                     <items>
                                         <ColumnListItem type="Active" press="onShowPostal">
                                                 <cells>  
-                                                    <Text text="{EmployeeID}" />
-                                                    <Text text="{LastName}, {FirstName}" />
-                                                    <Text text="{Country}" />
-                                                    <Text text="{City}" />
+                                                    <Text text="{jsonEmployee>EmployeeID}" />
+                                                    <Text text="{jsonEmployee>LastName}, {jsonEmployee>FirstName}" />
+                                                    <Text text="{jsonEmployee>Country}" />
+                                                    <Text text="{jsonEmployee>City}" />
                                                 </cells>
                                         </ColumnListItem>
                                     </items> 

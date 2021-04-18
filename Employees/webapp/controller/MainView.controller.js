@@ -17,34 +17,14 @@ sap.ui.define([
         "use strict";
 
         function onInit() {
-            var oJSONModel = new JSONModel();
+            var oJSONModel1 = new JSONModel();
+            var oJSONModel2 = new JSONModel();
             var oView = this.getView();
             //const oResourceBundle = oView.getModel("i18n").getResourceBundle(); 
-            // var oJSON = {
-            //     employeeId: "1234",
-            //     countryKey: "UK",
-            //     listCountry: [
-            //         {
-            //         "key": "US",
-            //         "text": oResourceBundle.getText("labelUS")
-            //         },
-            //         {
-            //         "key": "UK",
-            //         "text": oResourceBundle.getText("labelUK")
-            //         },
-            //         {
-            //         "key": "ES",
-            //         "text": oResourceBundle.getText("labelES")
-            //         },
-            //         {
-            //         "key": "PE",
-            //         "text": oResourceBundle.getText("labelPE")
-            //         }
-            //     ]
-            // };
-            //oJSONModel.setData(oJSON);
-            oJSONModel.loadData("./localService/mockdata/Employees.json",false);
-            oView.setModel(oJSONModel);
+            oJSONModel1.loadData("./localService/mockdata/Employees.json",false);
+            oView.setModel(oJSONModel1,"jsonEmployee");
+            oJSONModel2.loadData("./localService/mockdata/Countries.json",false);
+            oView.setModel(oJSONModel2,"jsonCountry");            
          };
          function onLiveChange() {                
                 const oResourceBundle = this.getView().getModel("i18n").getResourceBundle();                 
@@ -66,7 +46,7 @@ sap.ui.define([
             };
 
         function onFilter() {
-            var oJSON = this.getView().getModel().getData();
+            var oJSON = this.getView().getModel("jsonCountry").getData();
             var filters = [];
 
             if (oJSON.EmployeeId !== "") {
@@ -83,7 +63,7 @@ sap.ui.define([
         };
 
         function onClearFilter() {
-            var oModel = this.getView().getModel();
+            var oModel = this.getView().getModel("jsonCountry");
             oModel.setProperty("/EmployeeId","");
             oModel.setProperty("/CountryKey","");
         };
