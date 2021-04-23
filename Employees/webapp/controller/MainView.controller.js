@@ -94,7 +94,38 @@ sap.ui.define([
             oModel.setProperty("/visibleCity", false);
             oModel.setProperty("/visibleBtnShowCity", true);
             oModel.setProperty("/visibleBtnHideCity", false);            
-        };        
+        };      
+        function onShowOrders(oEvent) {
+            var oTable = this.getView().byId("tableOrder");
+            var itemPressed = oEvent.getSource();
+            var oContext = itemPressed.getBindingContext("jsonEmployee");
+            var objectContext = oContext.getObject();
+            var orders = objectContext.Orders;
+            
+            oTable.destroyItems();
+
+            var orderItems = [];
+            for (var i in orders) {
+                orderItems.push( new sap.m.ColumnListItem({
+                            cells: [
+                                    new sap.m.Label({ text: orders[i].OrderID }),
+                                    new sap.m.Label({ text: orders[i].Freight }),
+                                    new sap.m.Label({ text: orders[i].ShipAddress })
+                                ]}));  
+            }
+            var newTable = new sap.m.Table({
+                width: "auto",
+                columns: [
+                          new sap.m.Column({ header: new sap.m.Label({ text: "{i18n>columnOrderID}" }) }),
+                          new sap.m.Column({ header: new sap.m.Label({ text: "{i18n>columnOrderFreight}" }) }),
+                          new sap.m.Column({ header: new sap.m.Label({ text: "{i18n>columnOrderShipAddress}" }) })
+                         ],
+                items: orderItems,
+                headerText: "{i18n>tableOrderTitle}"
+            }).addStyleClass("sapUiResponsiveMargin");
+
+            oTable.addItem(newTable);            
+        }  
 
         var Main = Controller.extend("logaligroup.Employees.controller.MainView", {});
 
@@ -105,6 +136,7 @@ sap.ui.define([
         Main.prototype.onShowPostal = onShowPostal;
         Main.prototype.onShowCity = onShowCity;            
         Main.prototype.onHideCity = onHideCity;
+        Main.prototype.onShowOrders = onShowOrders;
 
 		return Main;
 	});
