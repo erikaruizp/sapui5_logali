@@ -20,22 +20,24 @@
                         </HBox>    
                         <HBox>
                             <Panel>
+                                <Button id="btnShowCity" text="{i18n>btnShowCity}" press="onShowCity" visible="{jsonConfig>/visibleBtnShowCity}" class="sapUiSmallMarginEnd"/> 
+                                <Button id="btnHideCity" text="{i18n>btnHideCity}" press="onHideCity" visible="{jsonConfig>/visibleBtnHideCity}" class="sapUiSmallMarginEnd"/>                            
                                 <Table id="tableEmployee"
-                                    headerText="{i18n>tableEmployeeTitle}" 
-                                    class="sapUiResponsiveMargin" 
-                                    width="auto" 
-                                    items="{jsonEmployee>/Employees}">                                     
+                                        headerText="{i18n>tableEmployeeTitle}" 
+                                        class="sapUiResponsiveMargin" 
+                                        width="auto" 
+                                        items="{jsonEmployee>/Employees}">                                     
                                     <columns>
-                                        <Column hAlign="End" minScreenWidth="Small" demandPopin="true" width="6em">
+                                        <Column hAlign="End" minScreenWidth="Small" demandPopin="true" width="6em" visible="{jsonConfig>/visibleID}">
                                             <Text text="{i18n>columnEmployeeID}" />
                                         </Column>
-                                        <Column>
+                                        <Column visible="{jsonConfig>/visibleName}">
                                             <Text text="{i18n>columnEmployeeName}" />
                                         </Column>   
-                                        <Column minScreenWidth="Small" demandPopin="true">
+                                        <Column minScreenWidth="Small" demandPopin="true" visible="{jsonConfig>/visibleCountry}" >
                                             <Text text="{i18n>columnEmployeeCountry}" />
                                         </Column>
-                                        <Column minScreenWidth="Tablet">
+                                        <Column minScreenWidth="Tablet" visible="{jsonConfig>/visibleCity}">
                                             <Text text="{i18n>columnEmployeeCity}" />
                                         </Column>
                                     </columns>
