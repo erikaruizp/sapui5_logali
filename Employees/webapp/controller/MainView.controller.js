@@ -96,6 +96,7 @@ sap.ui.define([
             oModel.setProperty("/visibleBtnHideCity", false);            
         };      
         function onShowOrders(oEvent) {
+            const oResourceBundle = this.getView().getModel("i18n").getResourceBundle();
             var oTable = this.getView().byId("tableOrder");
             var itemPressed = oEvent.getSource();
             var oContext = itemPressed.getBindingContext("jsonEmployee");
@@ -113,7 +114,7 @@ sap.ui.define([
                                     new sap.m.Label({ text: orders[i].ShipAddress })
                                 ]}));  
             }
-            var newTable = new sap.m.Table({
+            var newTable1 = new sap.m.Table({
                 width: "auto",
                 columns: [
                           new sap.m.Column({ header: new sap.m.Label({ text: "{i18n>columnOrderID}" }) }),
@@ -124,7 +125,56 @@ sap.ui.define([
                 headerText: "{i18n>tableOrderTitle}"
             }).addStyleClass("sapUiResponsiveMargin");
 
-            oTable.addItem(newTable);            
+            oTable.addItem(newTable1);  
+            
+            var newTable2 = new sap.m.Table();
+            newTable2.setWidth("auto");
+            newTable2.addStyleClass("sapUiResponsiveMargin");
+
+            var columnOrderID = new sap.m.Column();
+            var labelOrderID = new sap.m.Label();
+            labelOrderID.bindProperty("text","i18n>columnOrderID");
+            columnOrderID.setHeader(labelOrderID);  
+            newTable2.addColumn(columnOrderID);         
+
+            var columnFreight = new sap.m.Column();
+            var labelFreight = new sap.m.Label();
+            labelFreight.bindProperty("text","i18n>columnOrderFreight"); 
+            columnFreight.setHeader(labelFreight);  
+            newTable2.addColumn(columnFreight);         
+
+            var columnShipAddress = new sap.m.Column();
+            var labelShipAddress = new sap.m.Label();
+            labelShipAddress.bindProperty("text","i18n>columnOrderShipAddress");                        
+            columnShipAddress.setHeader(labelShipAddress);  
+            newTable2.addColumn(columnShipAddress);     
+            
+            var columnListItem = new sap.m.ColumnListItem();
+
+            var cellOrderID = new sap.m.Label();
+            cellOrderID.bindProperty("text","jsonEmployee>OrderID");
+            columnListItem.addCell(cellOrderID);
+
+            var cellFreight = new sap.m.Label();
+            cellFreight.bindProperty("text","jsonEmployee>Freight");
+            columnListItem.addCell(cellFreight);
+            
+            var cellShipAddress = new sap.m.Label();
+            cellShipAddress.bindProperty("text","jsonEmployee>ShipAddress");
+            columnListItem.addCell(cellShipAddress);            
+
+            var oBindingInf = {
+                model: "jsonEmployee",
+                path: "Orders",
+                template: columnListItem
+            };
+            newTable2.bindAggregation("items",oBindingInf);
+            newTable2.bindElement("jsonEmployee>" + oContext.getPath());
+
+            var mensaje = oResourceBundle.getText("tableOrderTitle");
+            newTable2.setHeaderText(mensaje);
+
+            oTable.addItem(newTable2);
         }  
 
         var Main = Controller.extend("logaligroup.Employees.controller.MainView", {});
