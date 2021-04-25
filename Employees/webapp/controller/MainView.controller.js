@@ -32,7 +32,8 @@ sap.ui.define([
                  visibleCountry: true,
                  visibleCity: false,
                  visibleBtnShowCity: true,
-                 visibleBtnHideCity: false
+                 visibleBtnHideCity: false,
+                 visibleShowDetail: true,                 
              });
              oView.setModel(oJSONModelConfig,"jsonConfig");
          };
@@ -96,7 +97,17 @@ sap.ui.define([
             oModel.setProperty("/visibleBtnHideCity", false);            
         };      
         function onShowOrders(oEvent) {
-            const oResourceBundle = this.getView().getModel("i18n").getResourceBundle();
+            var iconPress = oEvent.getSource();
+            var oContext = iconPress.getBindingContext("jsonEmployee");
+
+            if (!this._oDialogOrder) {
+                this._oDialogOrder = new sap.ui.xmlfragment("logaligroup.Employees.fragment.DialogOrders",this);
+                this.getView().addDependent(this._oDialogOrder);                
+            }
+            this._oDialogOrder.bindElement("jsonEmployee>" + oContext.getPath());
+            this._oDialogOrder.open();
+            
+ /*         const oResourceBundle = this.getView().getModel("i18n").getResourceBundle();
             var oTable = this.getView().byId("tableOrder");
             var itemPressed = oEvent.getSource();
             var oContext = itemPressed.getBindingContext("jsonEmployee");
@@ -174,8 +185,12 @@ sap.ui.define([
             var mensaje = oResourceBundle.getText("tableOrderTitle");
             newTable2.setHeaderText(mensaje);
 
-            oTable.addItem(newTable2);
-        }  
+            oTable.addItem(newTable2); */
+
+        };
+        function onCloseDialog() {
+            this._oDialogOrder.close();
+        }
 
         var Main = Controller.extend("logaligroup.Employees.controller.MainView", {});
 
@@ -187,6 +202,7 @@ sap.ui.define([
         Main.prototype.onShowCity = onShowCity;            
         Main.prototype.onHideCity = onHideCity;
         Main.prototype.onShowOrders = onShowOrders;
+        Main.prototype.onCloseDialog = onCloseDialog;
 
 		return Main;
 	});
