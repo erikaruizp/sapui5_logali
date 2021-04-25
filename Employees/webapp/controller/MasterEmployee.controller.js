@@ -17,25 +17,7 @@ sap.ui.define([
         "use strict";
 
         function onInit() {
-            var oJSONModel1 = new JSONModel();
-            var oJSONModel2 = new JSONModel();
-            var oView = this.getView();
-            //const oResourceBundle = oView.getModel("i18n").getResourceBundle(); 
-            oJSONModel1.loadData("./localService/mockdata/Employees.json",false);
-            oView.setModel(oJSONModel1,"jsonEmployee");
-            oJSONModel2.loadData("./localService/mockdata/Countries.json",false);
-            oView.setModel(oJSONModel2,"jsonCountry");    
-            
-             var oJSONModelConfig = new JSONModel({
-                 visibleID: true,
-                 visibleName: true,
-                 visibleCountry: true,
-                 visibleCity: false,
-                 visibleBtnShowCity: true,
-                 visibleBtnHideCity: false,
-                 visibleShowDetail: true,                 
-             });
-             oView.setModel(oJSONModelConfig,"jsonConfig");
+
          };
          function onLiveChange() {                
                 const oResourceBundle = this.getView().getModel("i18n").getResourceBundle();                 
@@ -192,7 +174,7 @@ sap.ui.define([
             this._oDialogOrder.close();
         }
 
-        var Main = Controller.extend("logaligroup.Employees.controller.MainView", {});
+        var Main = Controller.extend("logaligroup.Employees.controller.MasterEmployee", {});
 
 		Main.prototype.onInit = onInit;
         Main.prototype.onLiveChange = onLiveChange;
