@@ -8,7 +8,7 @@ sap.ui.define([
     function (Controller) {
 
     function onInit() {
-        
+        var oView = this.getView().getModel("jsonEmployee");
     }
 
     var Main = Controller.extend("logaligroup.Employees.controller.EmployeeDetails", {});

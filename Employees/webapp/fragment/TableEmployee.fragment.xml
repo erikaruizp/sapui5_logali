@@ -10,29 +10,39 @@
                 width="auto" 
                 items="{jsonEmployee>/Employees}">                                     
             <columns>
-                <Column hAlign="End" minScreenWidth="Small" demandPopin="true" width="6em" visible="{jsonConfig>/visibleID}">
-                    <Text text="{i18n>columnEmployeeID}" />
+                <Column visible="{jsonConfig>/visibleID}">
+                    <header>
+                    <Label text="{i18n>columnEmployeeID}" />
+                    </header>
                 </Column>
                 <Column visible="{jsonConfig>/visibleName}">
-                    <Text text="{i18n>columnEmployeeName}" />
+                    <header>
+                    <Label text="{i18n>columnEmployeeName}" />
+                    </header>
                 </Column>   
-                <Column minScreenWidth="Small" demandPopin="true" visible="{jsonConfig>/visibleCountry}" >
-                    <Text text="{i18n>columnEmployeeCountry}" />
+                <Column visible="{jsonConfig>/visibleCountry}" >
+                    <header>
+                    <Label text="{i18n>columnEmployeeCountry}" />
+                    </header>
                 </Column>
-                <Column minScreenWidth="Tablet" visible="{jsonConfig>/visibleCity}">
-                    <Text text="{i18n>columnEmployeeCity}" />
+                <Column visible="{jsonConfig>/visibleCity}">
+                    <header>
+                    <Label text="{i18n>columnEmployeeCity}" />
+                    </header>
                 </Column>
-                <Column minScreenWidth="Tablet" visible="{jsonConfig>/visibleShowDetail}">
-                    <Text text="{i18n>columnShowDetail}" />
+                <Column visible="{jsonConfig>/visibleShowDetail}">
+                    <header>
+                    <Label text="{i18n>columnShowDetail}" />
+                    </header>
                 </Column>                
             </columns>
             <items>
                 <ColumnListItem>
                         <cells>  
-                            <Text text="{jsonEmployee>EmployeeID}" />
-                            <Text text="{jsonEmployee>LastName}, {jsonEmployee>FirstName}" />
-                            <Text text="{jsonEmployee>Country}" />
-                            <Text text="{jsonEmployee>City}" />
+                            <Label text="{jsonEmployee>EmployeeID}" />
+                            <Label text="{jsonEmployee>LastName}, {jsonEmployee>FirstName}" />
+                            <Label text="{jsonEmployee>Country}" />
+                            <Label text="{jsonEmployee>City}" />
                             <core:Icon src="sap-icon://show" press="onShowOrders"/>                            
                         </cells>
                 </ColumnListItem>

@@ -12,12 +12,15 @@ sap.ui.define([
         function onInit() {
             var oJSONModel1 = new JSONModel();
             var oJSONModel2 = new JSONModel();
+            var oJSONModel3 = new JSONModel();
             var oView = this.getView();
             //const oResourceBundle = oView.getModel("i18n").getResourceBundle(); 
             oJSONModel1.loadData("./localService/mockdata/Employees.json",false);
             oView.setModel(oJSONModel1,"jsonEmployee");
             oJSONModel2.loadData("./localService/mockdata/Countries.json",false);
             oView.setModel(oJSONModel2,"jsonCountry");    
+            oJSONModel3.loadData("./localService/mockdata/Layouts.json",false);
+            oView.setModel(oJSONModel3,"jsonLayout");                
             
             var oJSONModelConfig = new JSONModel({
                 visibleID: true,
