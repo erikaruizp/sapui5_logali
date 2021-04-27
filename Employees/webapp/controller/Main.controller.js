@@ -31,12 +31,21 @@ sap.ui.define([
                 visibleBtnHideCity: false,
                 visibleShowDetail: true,                 
             });
-            oView.setModel(oJSONModelConfig,"jsonConfig");        
-        }
+            oView.setModel(oJSONModelConfig,"jsonConfig");       
+            
+            this._bus = sap.ui.getCore().getEventBus();
+            this._bus.subscribe("flexible","onShowEmployee",this.showEmployeeDetail,this);
+        };
+        function showEmployeeDetail(category, nameEvent, path) {
+          var detailView = this.getView().byId("detailEmployeeView");  
+          detailView.bindElement("jsonEmployee>" + path);
+          this.getView().getModel("jsonLayout").setProperty("/ActiveKey","TwoColumnsMidExpanded");
+        };        
 
         var Main = Controller.extend("logaligroup.Employees.controller.Main", {});
 
         Main.prototype.onInit = onInit;
+        Main.prototype.showEmployeeDetail = showEmployeeDetail;
 
         return Main;
 });        
