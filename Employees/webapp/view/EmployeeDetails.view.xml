@@ -38,15 +38,26 @@
                             <FlexItemData growFactor="2"/>
                         </layoutData>                        
                     </HBox>    
-                    <HBox>
+                    <FlexBox direction="Row" justifyContent="End">
                         <Text text="{i18n>columnPostal}:" class="boldText sapUiTinyMarginEnd" /> 
                         <Text text="{jsonEmployee>PostalCode}"/>
                         <layoutData>
                             <FlexItemData growFactor="1"/>
                         </layoutData>                         
-                    </HBox>                                      
+                    </FlexBox>                                      
                 </items>
             </FlexBox>                   
+        </Panel>
+        <Panel class="sapUiSizeCompact" backgroundDesign="Transparent">
+            <headerToolbar>
+                <Toolbar>
+                    <Title text="{i18n>titleIncidence} {= ${jsonEmployee>Country} !=='US' ? ${i18n>europe} : ${i18n>us}}" />
+                    <ToolbarSpacer />
+                    <Button text="{i18n>butCreateIncidence}" press="onCreateIncidence"/>
+                </Toolbar>
+            </headerToolbar>
+            <Panel id="tableIncidence" class="sapUiNoContentPadding" backgroundDesign="Transparent">
+            </Panel>
         </Panel>
     </Page>
 </mvc:View>                                
