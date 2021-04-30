@@ -15,7 +15,7 @@ sap.ui.define([
         var newIncidence = sap.ui.xmlfragment("logaligroup.Employees.fragment.NewIncidence",this);
         var incidenceModel = this.getView().getModel("incidenceModel");
         var arrayData = incidenceModel.getData();
-        var index = arrayData.lenght;
+        var index = arrayData.length;
         arrayData.push({ index: index + 1 });
         incidenceModel.refresh();
         newIncidence.bindElement("incidenceModel>/" + index );

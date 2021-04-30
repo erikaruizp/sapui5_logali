@@ -1,3 +1,34 @@
 <core:FragmentDefinition xmlns="sap.m"
                          xmlns:core="sap.ui.core">
+    <Panel>
+        <headerToolbar>
+            <Toolbar>
+                <core:Icon src="{= ${incidenceModel>status} === '0' ? 'accept' : 
+                                   ${incidenceModel>status} === '1' ? 'alert' :
+                                   ${incidenceModel>status} === '2' ? 'decline' : ''
+                                }"/>
+                <Title text="{i18n>titleIncidence} {incidenceModel>index}"/>
+            </Toolbar>
+        </headerToolbar>
+        <content>
+            <HBox>
+                <VBox class="sapUiSmallMarginEnd">
+                    <Text text="{i18n>columnDate}"/>
+                    <DatePicker dateValue="{incidenceModel>date}"/>
+                </VBox>
+                <VBox class="sapUiSmallMarginEnd" visible="{= ${incidenceModel>date} !== '' &amp;&amp; ${incidenceModel>date} !== undefined}">
+                    <Text text="{i18n>columnReason}"/>
+                    <Input value="{incidenceModel>reason}" required="false"/>
+                </VBox> 
+                <VBox class="sapUiSmallMarginEnd" visible="{= ${incidenceModel>date} !== '' &amp;&amp; ${incidenceModel>date} !== undefined}">
+                    <Text text="{i18n>columnStatus}"/>
+                    <Select selectedKey="{incidenceModel>status}" forceSelection="false">
+                        <core:Item key="0" text="{i18n>optionCorrect}" />
+                        <core:Item key="1" text="{i18n>optionPending}" />
+                        <core:Item key="2" text="{i18n>optionError}" />
+                    </Select>
+                </VBox>                                
+            </HBox>
+        </content>
+    </Panel>
 </core:FragmentDefinition>                           
