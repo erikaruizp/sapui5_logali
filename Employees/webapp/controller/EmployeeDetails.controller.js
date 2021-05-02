@@ -27,7 +27,7 @@ sap.ui.define([
         var row = oEvent.getSource().getParent().getParent();
         var model = this.getView().getModel("incidenceModel");
         var data = model.getData();
-        var objeto = row.getBindingContext("incidenceModel");
+        var objeto = row.getBindingContext("incidenceModel").getObject();
 
         data.splice(objeto.index - 1, 1);
         for (var i in data) {
