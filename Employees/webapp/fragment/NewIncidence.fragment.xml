@@ -3,12 +3,13 @@
     <Panel>
         <headerToolbar>
             <Toolbar>
-                <core:Icon src="{= ${incidenceModel>status} === '0' ? 'accept' : 
-                                   ${incidenceModel>status} === '1' ? 'alert' :
-                                   ${incidenceModel>status} === '2' ? 'decline' : ''
+                <core:Icon src="{= ${incidenceModel>Type} === '0' ? 'accept' : 
+                                   ${incidenceModel>Type} === '1' ? 'alert' :
+                                   ${incidenceModel>Type} === '2' ? 'decline' : ''
                                 }"/>
-                <Title text="{i18n>titleIncidence} {incidenceModel>index} {path:'incidenceModel>date', formatter:'.Formatter.dateFormat'}"/>
+                <Title text="{i18n>titleIncidence} {incidenceModel>IncidenceId} {path:'incidenceModel>CreationDate', formatter:'.Formatter.dateFormat'}"/>
                 <ToolbarSpacer />
+                <Button icon="sap-icon://save" press="onSaveIncidence"/>
                 <core:Icon src="delete" press="onDeleteIncidence"/>
             </Toolbar>
         </headerToolbar>
@@ -16,15 +17,15 @@
             <HBox>
                 <VBox class="sapUiSmallMarginEnd">
                     <Text text="{i18n>columnDate}"/>
-                    <DatePicker dateValue="{incidenceModel>date}"/>
+                    <DatePicker dateValue="{incidenceModel>CreationDate}"/>
                 </VBox>
-                <VBox class="sapUiSmallMarginEnd" visible="{= ${incidenceModel>date} !== '' &amp;&amp; ${incidenceModel>date} !== undefined}">
+                <VBox class="sapUiSmallMarginEnd" visible="{= ${incidenceModel>CreationDate} !== '' &amp;&amp; ${incidenceModel>CreationDate} !== undefined}">
                     <Text text="{i18n>columnReason}"/>
-                    <Input value="{incidenceModel>reason}" required="false"/>
+                    <Input value="{incidenceModel>Reason}" required="false"/>
                 </VBox> 
-                <VBox class="sapUiSmallMarginEnd" visible="{= ${incidenceModel>date} !== '' &amp;&amp; ${incidenceModel>date} !== undefined}">
+                <VBox class="sapUiSmallMarginEnd" visible="{= ${incidenceModel>CreationDate} !== '' &amp;&amp; ${incidenceModel>CreationDate} !== undefined}">
                     <Text text="{i18n>columnStatus}"/>
-                    <Select selectedKey="{incidenceModel>status}" forceSelection="false">
+                    <Select selectedKey="{incidenceModel>Type}" forceSelection="false">
                         <core:Item key="0" text="{i18n>optionCorrect}" />
                         <core:Item key="1" text="{i18n>optionPending}" />
                         <core:Item key="2" text="{i18n>optionError}" />

@@ -9,6 +9,9 @@ sap.ui.define([
      */
     function (Controller,JSONModel) {
 
+        function onBeforeRendering() {
+          this._detailEmployeeView = this.getView().byId("detailEmployeeView");  
+        };
         function onInit() {
             var oJSONModel1 = new JSONModel();
             var oJSONModel2 = new JSONModel();
@@ -35,6 +38,7 @@ sap.ui.define([
             
             this._bus = sap.ui.getCore().getEventBus();
             this._bus.subscribe("flexible","onShowEmployee",this.showEmployeeDetail,this);
+            this._bus.subscribe("incidence","onSaveIncidence",this.onSaveOdataIncidence,this);
         };
         function showEmployeeDetail(category, nameEvent, path) {
           var detailView = this.getView().byId("detailEmployeeView");  
@@ -45,11 +49,16 @@ sap.ui.define([
           detailView.setModel(incidenceModel,"incidenceModel");
           detailView.byId("tableIncidence").removeAllContent();
         };        
+        function onSaveOdataIncidence(channelId,EventId,data) {
+            
+        };
 
         var Main = Controller.extend("logaligroup.Employees.controller.Main", {});
 
         Main.prototype.onInit = onInit;
         Main.prototype.showEmployeeDetail = showEmployeeDetail;
+        Main.prototype.onBeforeRendering = onBeforeRendering;
+        Main.prototype.onSaveOdataIncidence = onSaveOdataIncidence;
 
         return Main;
 });        
