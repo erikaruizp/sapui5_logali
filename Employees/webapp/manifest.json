@@ -23,6 +23,14 @@
           "odataVersion": "2.0",
           "localUri": "localService/metadata.xml"
         }
+      },
+      "YSAPUI5_SRV_01": {
+        "uri": "/sap/opu/odata/sap/YSAPUI5_SRV_01/",
+        "type": "OData",
+        "settings": {
+          "odataVersion": "2.0",
+          "localUri": "localService/metadata.xml"
+        }
       }
     }
   },
@@ -73,9 +81,31 @@
         "dataSource": "Northwind.svc",
         "preload": true,
         "settings": {
-          "defaultOperationMode": "Server",  
+          "defaultOperationMode": "Server",
           "defaultBindingMode": "OneWay",
           "defaultCountMode": "Request",
+          "refreshAfterChange": false
+        }
+      },
+      "incidenceModel": {
+        "type": "sap.ui.model.odata.v2.ODataModel",
+        "dataSource": "YSAPUI5_SRV_01",
+        "preload": true,
+        "settings": {
+          "defaultOperationMode": "Server",
+          "defaultBindingMode": "TwoWay",
+          "defaultCountMode": "Request",
+          "refreshAfterChange": false,
+          "useBatch": false,
+          "defaultUpdateMode": "Put"
+        }
+      },
+      "": {
+        "dataSource": "YSAPUI5_SRV_01",
+        "preload": true,
+        "settings": {
+          "defaultBindingMode": "TwoWay",
+          "defaultCountMode": "Inline",
           "refreshAfterChange": false
         }
       }
@@ -120,7 +150,7 @@
           "clearControlAggregation": false,
           "viewId": "MasterEmployee",
           "viewName": "MasterEmployee"
-        },        
+        },
         "TargetEmployeeDetails": {
           "viewType": "XML",
           "transition": "slide",
