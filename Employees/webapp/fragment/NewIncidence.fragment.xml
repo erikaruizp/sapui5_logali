@@ -7,7 +7,9 @@
                                    ${incidenceModel>status} === '1' ? 'alert' :
                                    ${incidenceModel>status} === '2' ? 'decline' : ''
                                 }"/>
-                <Title text="{i18n>titleIncidence} {incidenceModel>index}"/>
+                <Title text="{i18n>titleIncidence} {incidenceModel>index} {path:'incidenceModel>date', formatter:'.Formatter.dateFormat'}"/>
+                <ToolbarSpacer />
+                <core:Icon src="delete" press="onDeleteIncidence"/>
             </Toolbar>
         </headerToolbar>
         <content>
