@@ -80,20 +80,20 @@ sap.ui.define([
         };      
         function onShowOrders(oEvent) {
             var iconPress = oEvent.getSource();
-            var oContext = iconPress.getBindingContext("jsonEmployee");
+            var oContext = iconPress.getBindingContext("odataNorthwind");
 
             if (!this._oDialogOrder) {
                 this._oDialogOrder = new sap.ui.xmlfragment("logaligroup.Employees.fragment.DialogOrders",this);
                 this.getView().addDependent(this._oDialogOrder);                
             }
-            this._oDialogOrder.bindElement("jsonEmployee>" + oContext.getPath());
+            this._oDialogOrder.bindElement("odataNorthwind>" + oContext.getPath());
             this._oDialogOrder.open();            
         };
         function onCloseDialog() {
             this._oDialogOrder.close();
         };
         function onShowEmployee(oEvent) {
-            var oContext = oEvent.getSource().getBindingContext("jsonEmployee");   
+            var oContext = oEvent.getSource().getBindingContext("odataNorthwind");   
             var path = oContext.getPath();
             this._bus.publish("flexible","onShowEmployee",path);
                         
