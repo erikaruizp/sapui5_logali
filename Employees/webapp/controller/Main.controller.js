@@ -50,7 +50,30 @@ sap.ui.define([
           detailView.byId("tableIncidence").removeAllContent();
         };        
         function onSaveOdataIncidence(channelId,EventId,data) {
-            
+            const oResourceBundle = this.getView().getModel("i18n").getResourceBundle();   
+            var employeeId = this._detailEmployeeView.getBindingContext("odataNorthwind").getObject().EmployeeID;
+            var incidenceArray =  this._detailEmployeeView.getModel("incidenceModel").getData();
+
+            if (typeof incidenceArray[data.incidenceRow].IncidenceId == 'undefined') {
+                var body = {
+                    SapId : this.getOwnerComponent().SapId,
+                    EmployeeId : employeeId.toString(),
+                    CreationDate : incidenceArray[data.incidenceRow].CreationDate,
+                    Type : incidenceArray[data.incidenceRow].Type,
+                    Reason : incidenceArray[data.incidenceRow].Reason
+                };
+                this.getView().getModel("incidenceModel").create("/IncidentsSet", body, {
+                    success: function () {
+                        sap.m.MessageToast.show(oResourceBundle.getText("msgSaveOK"));
+                    }.bind(this),
+                    error: function (e) {
+                        sap.m.MessageToast.show(oResourceBundle.getText("msgSaveError"));
+                    }.bind(this)
+                });                
+            } else {
+                sap.m.MessageToast.show(oResourceBundle.getText("msgNoChanges"));                
+            }
+
         };
 
         var Main = Controller.extend("logaligroup.Employees.controller.Main", {});
