@@ -73,10 +73,32 @@ sap.ui.define([
                         sap.m.MessageToast.show(oResourceBundle.getText("msgSaveError"));
                     }.bind(this)
                 });                
-            } else {
+            } else if ( incidenceArray[data.incidenceRow].CreationDateX || incidenceArray[data.incidenceRow].ReasonX || 
+                        incidenceArray[data.incidenceRow].TypeX) {
+                var body = {
+                    CreationDate : incidenceArray[data.incidenceRow].CreationDate,
+                    CreationDateX : incidenceArray[data.incidenceRow].CreationDateX,
+                    Type : incidenceArray[data.incidenceRow].Type,
+                    TypeX : incidenceArray[data.incidenceRow].TypeX,
+                    Reason : incidenceArray[data.incidenceRow].Reason,
+                    ReasonX : incidenceArray[data.incidenceRow].ReasonX                    
+                };
+                var strEntidadFiltro = "/IncidentsSet(IncidenceId='" + incidenceArray[data.incidenceRow].IncidenceId +
+                                       "',SapId='" + incidenceArray[data.incidenceRow].SapId + "',EmployeeId='" + 
+                                       incidenceArray[data.incidenceRow].EmployeeId + "')";
+
+                this.getView().getModel("incidenceModel").update(strEntidadFiltro, body, {
+                    success: function () {
+                        sap.m.MessageToast.show(oResourceBundle.getText("msgUpdateOK"));
+                    }.bind(this),
+                    error: function (e) {
+                        sap.m.MessageToast.show(oResourceBundle.getText("msgUpdateError"));
+                    }.bind(this)
+                });                
+
+            } else {                
                 sap.m.MessageToast.show(oResourceBundle.getText("msgNoChanges"));                
             }
-
         };
         function onReadOdataIncidence(employeeId) {
             this.getView().getModel("incidenceModel").read("/IncidentsSet",{

@@ -18,15 +18,15 @@
             <HBox>
                 <VBox class="sapUiSmallMarginEnd">
                     <Text text="{i18n>columnDate}"/>
-                    <DatePicker dateValue="{incidenceModel>CreationDate}"/>
+                    <DatePicker dateValue="{incidenceModel>CreationDate}" change="onUpdateDateX"/>
                 </VBox>
                 <VBox class="sapUiSmallMarginEnd" visible="{= ${incidenceModel>CreationDate} !== '' &amp;&amp; ${incidenceModel>CreationDate} !== undefined}">
                     <Text text="{i18n>columnReason}"/>
-                    <Input value="{incidenceModel>Reason}" required="false"/>
+                    <Input value="{incidenceModel>Reason}" required="false" change="onUpdateReasonX"/>
                 </VBox> 
                 <VBox class="sapUiSmallMarginEnd" visible="{= ${incidenceModel>CreationDate} !== '' &amp;&amp; ${incidenceModel>CreationDate} !== undefined}">
                     <Text text="{i18n>columnStatus}"/>
-                    <Select selectedKey="{incidenceModel>Type}" forceSelection="false">
+                    <Select selectedKey="{incidenceModel>Type}" forceSelection="false" change="onUpdateTypeX">
                         <core:Item key="0" text="{i18n>optionCorrect}" />
                         <core:Item key="1" text="{i18n>optionPending}" />
                         <core:Item key="2" text="{i18n>optionError}" />

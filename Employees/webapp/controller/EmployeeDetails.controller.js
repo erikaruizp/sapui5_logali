@@ -45,7 +45,19 @@ sap.ui.define([
         var contextRow = row.getBindingContext("incidenceModel");
 
         this._bus.publish("incidence","onSaveIncidence",{incidenceRow: contextRow.sPath.replace('/','')});        
-    }
+    };
+    function onUpdateDateX(oEvent) {
+        var objeto = oEvent.getSource().getBindingContext("incidenceModel").getObject();
+        objeto.CreationDateX = true;
+    };
+    function onUpdateReasonX(oEvent) {
+        var objeto = oEvent.getSource().getBindingContext("incidenceModel").getObject();
+        objeto.ReasonX = true;        
+    };
+    function onUpdateTypeX(oEvent) {
+        var objeto = oEvent.getSource().getBindingContext("incidenceModel").getObject();
+        objeto.TypeX = true;        
+    };        
     var Main = Controller.extend("logaligroup.Employees.controller.EmployeeDetails", {});
 
     Main.prototype.onInit = onInit;
@@ -53,6 +65,9 @@ sap.ui.define([
     Main.prototype.Formatter = formatter;
     Main.prototype.onDeleteIncidence = onDeleteIncidence;
     Main.prototype.onSaveIncidence = onSaveIncidence;
+    Main.prototype.onUpdateDateX = onUpdateDateX;
+    Main.prototype.onUpdateReasonX = onUpdateReasonX;
+    Main.prototype.onUpdateTypeX = onUpdateTypeX;
     
     return Main;
 });    
