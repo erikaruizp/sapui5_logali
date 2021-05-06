@@ -7,7 +7,8 @@
                                    ${incidenceModel>Type} === '1' ? 'alert' :
                                    ${incidenceModel>Type} === '2' ? 'decline' : ''
                                 }"/>
-                <Title text="{i18n>titleIncidence} {incidenceModel>IncidenceId} {path:'incidenceModel>CreationDate', formatter:'.Formatter.dateFormat'}"/>
+                <Title text="{i18n>titleIncidence} {= ${incidenceModel>IncidenceId} ? parseInt(${incidenceModel>IncidenceId}) : ''}
+                             {path:'incidenceModel>CreationDate', formatter:'.Formatter.dateFormat'}"/>
                 <ToolbarSpacer />
                 <Button icon="sap-icon://save" press="onSaveIncidence"/>
                 <core:Icon src="delete" press="onDeleteIncidence"/>
