@@ -23,22 +23,12 @@ sap.ui.define([
         tableInc.addContent(newIncidence);
     };
     function onDeleteIncidence(oEvent) {
-        var table = this.getView().byId("tableIncidence");
-        var row = oEvent.getSource().getParent().getParent();
-        var model = this.getView().getModel("incidenceModel");
-        var data = model.getData();
-        var objeto = row.getBindingContext("incidenceModel").getObject();
-
-        data.splice(objeto.index - 1, 1);
-        for (var i in data) {
-            data[i].index = parseInt(i) + 1;
-        }
-        model.refresh();
-        table.removeContent(row);
-
-        for (var j in table.getContent()) {
-            table.getContent()[j].bindElement("incidenceModel>/" + j);
-        }
+        var objeto = oEvent.getSource().getBindingContext("incidenceModel").getObject();
+        this._bus.publish("incidence","onDeleteIncidence",{
+            IncidenceId: objeto.IncidenceId,
+            SapId: objeto.SapId,
+            EmployeeId: objeto.EmployeeId
+        });
     };
     function onSaveIncidence(oEvent) {
         var row = oEvent.getSource().getParent().getParent();
