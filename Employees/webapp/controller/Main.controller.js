@@ -2,12 +2,14 @@
 sap.ui.define([
         "sap/ui/core/mvc/Controller",
         "sap/ui/model/json/JSONModel",
+        "sap/m/MessageBox"
 	],
 	/**
      * @param {typeof sap.ui.core.mvc.Controller} Controller
      * @param {typeof sap.ui.model.json.JSONModel} JSONModel
+      * @param {typeof sap.m.MessageBox} MessageBox
      */
-    function (Controller,JSONModel) {
+    function (Controller,JSONModel,MessageBox) {
 
         function onBeforeRendering() {
           this._detailEmployeeView = this.getView().byId("detailEmployeeView");  
@@ -82,7 +84,8 @@ sap.ui.define([
                 this.getView().getModel("incidenceModel").create("/IncidentsSet", body, {
                     success: function () {
                         this.onReadOdataIncidence.bind(this)(employeeId);
-                        sap.m.MessageToast.show(oResourceBundle.getText("msgSaveOK"));
+//                        sap.m.MessageToast.show(oResourceBundle.getText("msgSaveOK"));
+                        MessageBox.success(oResourceBundle.getText("msgSaveOK"));  
                     }.bind(this),
                     error: function (e) {
                         sap.m.MessageToast.show(oResourceBundle.getText("msgSaveError"));
@@ -129,7 +132,8 @@ sap.ui.define([
                     tableInc.removeAllContent();
 
                     for (i in data.results) {
-                        const element = data.results[i];
+                        data.results[i].CreationDateState = "None";
+                        data.results[i].ReasonState = "None";
                         var newIncidence = sap.ui.xmlfragment("logaligroup.Employees.fragment.NewIncidence",this._detailEmployeeView.getController());
                         this._detailEmployeeView.addDependent(newIncidence);
                         newIncidence.bindElement("incidenceModel>/" + i );
