@@ -2,28 +2,7 @@
                          xmlns:core="sap.ui.core">
     <Dialog id="orderDialog" title="{i18n>dialogTitle} de {odataNorthwind>FirstName} {odataNorthwind>LastName}" >
         <content>
-                <Table items="{odataNorthwind>Orders}" width="700px">
-                    <columns>
-                        <Column>
-                            <Text text="{i18n>columnOrderID}" />
-                        </Column>
-                        <Column>
-                            <Text text="{i18n>columnOrderFreight}" />
-                        </Column>   
-                        <Column>
-                            <Text text="{i18n>columnOrderShipAddress}" />
-                        </Column>             
-                    </columns>    
-                    <items>
-                        <ColumnListItem>
-                                <cells>  
-                                    <Text text="{odataNorthwind>OrderID}" />
-                                    <Text text="{odataNorthwind>Freight}" />
-                                    <Text text="{odataNorthwind>ShipAddress}" />
-                                </cells>
-                        </ColumnListItem>
-                    </items>                                
-                </Table>            
+            <core:Fragment fragmentName="logaligroup.Employees.fragment.TableOrders" type="XML"/>                  
         </content>
         <beginButton>
             <Button text="{i18n>dialogCloseBut}" press="onCloseDialog"/> 
