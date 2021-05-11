@@ -97,16 +97,7 @@
           "defaultCountMode": "Request",
           "refreshAfterChange": false,
           "useBatch": false,
-          "defaultUpdateMode": "Put"
-        }
-      },
-      "": {
-        "dataSource": "YSAPUI5_SRV_01",
-        "preload": true,
-        "settings": {
-          "defaultBindingMode": "TwoWay",
-          "defaultCountMode": "Inline",
-          "refreshAfterChange": false
+          "defaultUpdateMode": "PUT"
         }
       }
     },
