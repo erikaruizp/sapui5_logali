@@ -15,11 +15,11 @@ sap.ui.define([
           this._detailEmployeeView = this.getView().byId("detailEmployeeView");  
         };
         function onInit() {
+            var oView = this.getView();             
             var oJSONModel1 = new JSONModel();
             var oJSONModel2 = new JSONModel();
             var oJSONModel3 = new JSONModel();
-            var oView = this.getView();
-            const oResourceBundle = oView.getModel("i18n").getResourceBundle(); 
+ 
             oJSONModel1.loadData("./localService/mockdata/Employees.json",false);
             oView.setModel(oJSONModel1,"jsonEmployee");
             oJSONModel2.loadData("./localService/mockdata/Countries.json",false);
@@ -35,7 +35,7 @@ sap.ui.define([
                 visibleBtnShowCity: true,
                 visibleBtnHideCity: false,
                 visibleShowDetail: true,                 
-            });
+            });           
             oView.setModel(oJSONModelConfig,"jsonConfig");       
             
             this._bus = sap.ui.getCore().getEventBus();
@@ -43,6 +43,8 @@ sap.ui.define([
             this._bus.subscribe("incidence","onSaveIncidence",this.onSaveOdataIncidence,this);
 
             this._bus.subscribe("incidence","onDeleteIncidence",function (channelId,EventId,data) {
+
+                var oResourceBundle = this.getView().getModel("i18n").getResourceBundle();                 
                 var strEntidadFiltro = "/IncidentsSet(IncidenceId='" + data.IncidenceId + "',SapId='" + data.SapId + 
                                        "',EmployeeId='" + data.EmployeeId + "')";
 
