@@ -13,7 +13,7 @@
             </Column>             
         </columns>    
         <items>
-            <ColumnListItem>
+            <ColumnListItem type="Navigation" press="toOrderDetails">
                     <cells>  
                         <Text text="{odataNorthwind>OrderID}" />
                         <Text text="{odataNorthwind>Freight}" />
