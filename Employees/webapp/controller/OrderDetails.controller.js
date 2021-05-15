@@ -1,3 +1,4 @@
+//@ts-nocheck
 sap.ui.define([
         "sap/ui/core/mvc/Controller",
         "sap/ui/core/routing/History"
@@ -32,6 +33,43 @@ sap.ui.define([
             onClearSignature: function (oEvent) {
                 var firma = this.byId("signature");
                 firma.clear();
+            },
+            factoryOrderDetails: function (listId,oContext) {
+                var objeto = oContext.getObject();
+                objeto.currency = "EUR";
+                var unitInStock = oContext.getModel().getProperty("/Products(" + objeto.ProductID + ")/UnitsInStock");
+
+                if (objeto.Quantity <= unitInStock) {
+                    var oListItem = new sap.m.ObjectListItem({
+                        title: "{odataNorthwind>/Products(" + objeto.ProductID + ")/ProductName} (" + objeto.Quantity + ")",
+                        number:"{parts: [{path: 'odataNorthwind>UnitPrice'},{path: 'odataNorthwind>currency'}]," +
+                               " type: 'sap.ui.model.type.Currency', " +
+                               " formatOptions: {showMeasure: false}" +
+                               "}",
+                        numberUnit: "{odataNorthwind>currency}",
+                    });
+                    return oListItem;
+                } else {
+                    var oCustomListItem = new sap.m.CustomListItem({
+                        content: [
+                            new sap.m.Bar({
+                                contentLeft: new sap.m.Label({
+                                    text:"{odataNorthwind>/Products(" + objeto.ProductID + ")/ProductName} (" + objeto.Quantity + ")"
+                                }),
+                                contentMiddle: new sap.m.ObjectStatus({
+                                    text:"{i18n>availStockTitle} " + unitInStock,
+                                    state:"Error" 
+                                }),
+                                contentRight: new sap.m.Label({
+                                    text: "{parts: [{path: 'odataNorthwind>UnitPrice'},{path: 'odataNorthwind>currency'}]," +
+                                          " type: 'sap.ui.model.type.Currency' " +
+                                          "}"
+                                })
+                            })
+                        ]
+                    });
+                    return oCustomListItem;
+                }
             }
         });
 }); 

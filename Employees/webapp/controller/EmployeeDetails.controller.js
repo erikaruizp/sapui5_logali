@@ -1,14 +1,14 @@
 //@ts-nocheck
 sap.ui.define([
-        "sap/ui/core/mvc/Controller",
+        "logaligroup/Employees/controller/Base.controller",
         "logaligroup/Employees/model/formatter",
         "sap/m/MessageBox"
 	],
 	/**
-     * @param {typeof sap.ui.core.mvc.Controller} Controller
+     * @param {typeof logaligroup.Employees.controller.Base.controller} Base
      * @param {typeof sap.m.MessageBox} MessageBox
      */
-    function (Controller,formatter,MessageBox) {
+    function (Base,formatter,MessageBox) {
 
     function onInit() {
         this._bus = sap.ui.getCore().getEventBus();
@@ -96,14 +96,8 @@ sap.ui.define([
         var objeto = oEvent.getSource().getBindingContext("incidenceModel").getObject();
         objeto.TypeX = true;        
     };      
-    function toOrderDetails(oEvent) {
-        var orderID = oEvent.getSource().getBindingContext("odataNorthwind").getObject().OrderID;
-        var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
-        oRouter.navTo("RouteOrderDetails",{
-            OrderID: orderID
-        });
-    };      
-    var Main = Controller.extend("logaligroup.Employees.controller.EmployeeDetails", {});
+    
+    var Main = Base.extend("logaligroup.Employees.controller.EmployeeDetails", {});
 
     Main.prototype.onInit = onInit;
     Main.prototype.onCreateIncidence = onCreateIncidence;
@@ -113,7 +107,6 @@ sap.ui.define([
     Main.prototype.onUpdateDateX = onUpdateDateX;
     Main.prototype.onUpdateReasonX = onUpdateReasonX;
     Main.prototype.onUpdateTypeX = onUpdateTypeX;
-    Main.prototype.toOrderDetails = toOrderDetails;
     
     return Main;
 });    

@@ -1,3 +1,4 @@
+//@ts-nocheck
 sap.ui.define([
         "sap/ui/core/mvc/Controller",
 	],
