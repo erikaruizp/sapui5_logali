@@ -2,13 +2,15 @@
 sap.ui.define([
         "sap/ui/core/mvc/Controller",
         "sap/ui/core/routing/History",
-        "sap/m/MessageBox"
+        "sap/m/MessageBox",
+        "sap/ui/model/Filter",
+        "sap/ui/model/FilterOperator",        
 	],
 	/**
      * @param {typeof sap.ui.core.mvc.Controller} Controller
      * @param {typeof sap.ui.routing.History} History
      */
-    function (Controller,History,MessageBox) {
+    function (Controller,History,MessageBox,Filter,FilterOperator) {
         function _onObjectMatch(oEvent) {
             this.onClearSignature();
             this.getView().bindElement({
@@ -28,6 +30,7 @@ sap.ui.define([
         };
 
         function _readSignature(orderId,employeeId) {
+            //Read Signature
             this.getView().getModel("incidenceModel").read("/SignatureSet(OrderId='" + orderId + 
                                                            "',SapId='" + this.getOwnerComponent().SapId + 
                                                            "',EmployeeId='" + employeeId + "')",{ 
@@ -40,6 +43,21 @@ sap.ui.define([
                 error: function (e) {
 //                    MessageBox.error(oResourceBundle.getText("msgSignatureNotRead"));
                 }.bind(this)
+            });
+
+            //Bind Files
+            this.byId("fileCollection").bindAggregation("items",{
+               path: "incidenceModel>/FilesSet",
+               filters: [
+                    new Filter("OrderId", FilterOperator.EQ, orderId),
+                    new Filter("SapId", FilterOperator.EQ, this.getOwnerComponent().SapId),
+                    new Filter("EmployeeId", FilterOperator.EQ, employeeId)
+                ],
+                template: new sap.m.UploadCollectionItem({
+                    documentId: "{incidenceModel>AttId}",
+                    visibleEdit: false,
+                    fileName: "{incidenceModel>FileName}"
+                }).attachPress(this.downloadFile)
             });
         };
 
@@ -145,7 +163,27 @@ sap.ui.define([
                 value: this.getView().getModel("incidenceModel").getSecurityToken()
             });
             oUploadCollection.addHeaderParameter(parameterToken);
-        }           
+        },
+        onUploadComplete: function (oEvent) {
+            oEvent.getSource().getBinding("items").refresh();
+        },
+        onFileDeleted: function (oEvent) {
+            let oUploadCollection = oEvent.getSource();
+            let sPath = oEvent.getParameter("item").getBindingContext("incidenceModel").getPath();
+            this.getView().getModel("incidenceModel").remove(sPath,{
+                success: function () {
+                    oUploadCollection.getBinding("items").refresh();
+                },
+                error: function (e) {
+                    
+                }
+            });
+        },
+        downloadFile: function (oEvent) {
+            let sPath = oEvent.getSource().getBindingContext("incidenceModel").getPath();
+
+            window.open("/sap/opu/odata/sap/YSAPUI5_SRV_01" + sPath + "/$value");
+        }
         
         });
 }); 
