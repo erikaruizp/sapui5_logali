@@ -56,6 +56,19 @@
                         <Button text="{i18n>clearBut}" press="onClearSignature" class="sapUiTinyMarginBegin"></Button>
                     </FlexBox>                    
                 </l:Grid>
+                <UploadCollection id="fileCollection"
+                                  maximumFilenameLength="55"
+                                  maximumFileSize="10"
+                                  multiple="true"
+                                  sameFilenameAllowed="true"
+                                  instantUpload="true"
+                                  uploadUrl="/sap/opu/odata/sap/YSAPUI5_SRV_01/FileSet"
+                                  change="onFileChange"
+                                  uploadComplete="onUploadComplete"
+                                  beforeUploadStarts="onBeforeUpload"
+                                  fileDeleted="onFileDeleted"
+                >
+                </UploadCollection>
             </Panel>
             <Panel headerText="{i18n>orderProductsTitle}">
                 <List items="{
