@@ -64,6 +64,12 @@
                     factory: '.factoryOrderDetails'
                     }" />
             </Panel>
-        </content>    
+        </content>   
+        <footer>
+            <Toolbar>
+                <ToolbarSpacer></ToolbarSpacer>
+                <Button text="{i18n>saveSignatureBut}" press="onSaveSignature" ></Button>
+            </Toolbar>
+        </footer>
     </Page>
 </mvc:View>          

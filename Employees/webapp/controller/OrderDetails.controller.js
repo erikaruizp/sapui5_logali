@@ -1,13 +1,14 @@
 //@ts-nocheck
 sap.ui.define([
         "sap/ui/core/mvc/Controller",
-        "sap/ui/core/routing/History"
+        "sap/ui/core/routing/History",
+        "sap/m/MessageBox"
 	],
 	/**
      * @param {typeof sap.ui.core.mvc.Controller} Controller
      * @param {typeof sap.ui.routing.History} History
      */
-    function (Controller,History) {
+    function (Controller,History,MessageBox) {
         function _onObjectMatch(oEvent) {
             this.getView().bindElement({
                 path: '/Orders(' + oEvent.getParameter("arguments").OrderID + ')',
@@ -70,6 +71,33 @@ sap.ui.define([
                     });
                     return oCustomListItem;
                 }
+            },
+            onSaveSignature: function (oEvent) {
+                const firma = this.byId("signature");
+                const oResourceBundle = this.getView().getModel("i18n").getResourceBundle();
+                let firmaPNG;
+
+                if (!firma.isFill()) {
+                    MessageBox.error(oResourceBundle.getText("msgFillSignature"));
+                } else {
+                    firmaPNG = firma.getSignature().replace("data:image/png;base64,","");
+                    let objOrder = oEvent.getSource().getBindingContext("odataNorthwind").getObject();
+                    let body = {
+                        OrderId: objOrder.OrderID.toString(),
+                        SapId: this.getOwnerComponent().SapId,
+                        EmployeeId:  objOrder.EmployeeID.toString(),
+                        MediaContent: firmaPNG,
+                        MimeType: "image/png"
+                    };
+                    this.getView().getModel("incidenceModel").create("/SignatureSet", body, {
+                        success: function () {
+                            MessageBox.information(oResourceBundle.getText("msgSignatureSaved")); 
+                        },
+                        error: function () {
+                            MessageBox.error(oResourceBundle.getText("msgSignatureNotSaved"));
+                        }
+                    });
+                };
             }
         });
 }); 
