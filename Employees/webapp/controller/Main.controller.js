@@ -20,11 +20,11 @@ sap.ui.define([
             var oJSONModel2 = new JSONModel();
             var oJSONModel3 = new JSONModel();
  
-            oJSONModel1.loadData("./localService/mockdata/Employees.json",false);
+            oJSONModel1.loadData("./model/json/Employees.json",false);
             oView.setModel(oJSONModel1,"jsonEmployee");
-            oJSONModel2.loadData("./localService/mockdata/Countries.json",false);
+            oJSONModel2.loadData("./model/json/Countries.json",false);
             oView.setModel(oJSONModel2,"jsonCountry");    
-            oJSONModel3.loadData("./localService/mockdata/Layouts.json",false);
+            oJSONModel3.loadData("./model/json/Layouts.json",false);
             oView.setModel(oJSONModel3,"jsonLayout");                
             
             var oJSONModelConfig = new JSONModel({
