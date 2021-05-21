@@ -54,8 +54,10 @@ sap.ui.define([
             },
 
             clear: function () {
-                 this.signaturePad.clear();
-                 this.signaturePad.fill = false;
+                if (this.signaturePad !== undefined) {
+                    this.signaturePad.clear();
+                    this.signaturePad.fill = false;
+                }
             },
 
             isFill: function () {
